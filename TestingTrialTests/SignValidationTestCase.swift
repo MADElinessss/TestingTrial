@@ -9,21 +9,26 @@ import XCTest
 @testable import TestingTrial
 
 final class SignValidationTestCase: XCTestCase {
+    
+    // struct Validator
+    var sut: Validator!
+    
+    // 성공 케이스, 실패 케이스 미리 선언
+    let validUser = User(email: "jyseen@naver.com", password: "123123", check: "123123")
+    let invalidUser = User(email: "jyseen", password: "1", check: "1")
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = Validator()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testValidator_ValidationEmail_ReturnTrue() throws {
+        let valid = sut.isValidEmail(email: validUser.email)
+        // aseert문은 1개여야 해.
+        XCTAssertTrue(valid, "error: @ 없거나 6글자 미만")
     }
 
     func testPerformanceExample() throws {
